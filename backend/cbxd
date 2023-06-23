@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+if True:
+  #from daemon import Daemon
+  import json,time,sys,math,os,logging,random,threading,copy,datetime
+  import locale
+  import ssl
+  import asyncio
+  import random
+  import websocket#cbpro wants 0.40.0 but software.vegas using 0.57.0
+  import websockets
+  import cbpro
+  from pytz import timezone
+  import pytz
+  import requests
+  locale.setlocale( locale.LC_ALL, '' )
+  CURRENCIES_URL = 'https://api.pro.coinbase.com/currencies'
+  API_URL='https://api.pro.coinbase.com/'
+  FORMAT = '%(message)s'
+  logging.basicConfig(filename='/var/log/cbxd.log',level=logging.INFO, format=FORMAT)
+  #logging.StreamHandler.terminator = ""
+
+def log(msg):
+  print(msg, end="\n")
+  logging.info(msg)
+
+class CBXD:
+  def __init__(self,pidfile):
+    log('CBXD.__init__')
+    #Daemon.__init__(self, pidfile)
+
+  async def myfunc(self):
+    log('running forever ...')
+    #await asyncio.sleep(5)
+    try:
+      await asyncio.Future()
+    except:
+      log(sys.exc_info())
+    finally:
+      log('myfunc:finally')
+    log('wakeup and exit!')
+
+  async def run(self):
+    #start 2 threads then run forever
+    #t1
+    log('starting t1')
+    #t2
+    log('starting t2')
+    #
+    #asyncio.run(self.myfunc())
+    await self.myfunc()
+
+  def stop(self):
+    log('stopping')
+
+PID='/var/run/cbxd.pid'
+cbxd=CBXD(PID)
+asyncio.run(cbxd.run())
+	
